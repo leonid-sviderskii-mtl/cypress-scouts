@@ -1,23 +1,28 @@
 describe('First e2e tests', () => {
-  it('Signs in', () => {
-    cy.intercept('/config.json').as('config')
+  const username = 'username'
+  const password = 'password'
+  const passwordBase64 = 'cGFzc3dvcmQ='
+  it('Signs in via UI', () => {
+    cy.loginByUi(username, password);
+
     cy.visit('/')
-    cy.wait('@config').then((response) => {
-      const { API_URL } = response.response.body;
-      cy.log(API_URL)
-    })
-
-    cy.get('#login2').click();
-
-    cy.get('#loginusername')
-      .type('username')
-    cy.get('#loginpassword')
-      .type('password')
-
-    cy.get('#logInModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary')
-        .click()
 
     cy.get('#logout2')
       .should('be.visible')
+
+    cy.get('#nameofuser')
+      .should('have.text', `Welcome ${username}`)
+  })
+
+  it('Signs in via API', () => {
+    cy.loginByApi(username, passwordBase64)
+
+    cy.visit('/')
+
+    cy.get('#logout2')
+      .should('be.visible')
+
+    cy.get('#nameofuser')
+      .should('have.text', `Welcome ${username}`)
   })
 })
