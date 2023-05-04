@@ -12,11 +12,13 @@ Cypress.Commands.add('loginByUi', (username, password) => {
 
         cy.intercept('/login').as('login');
 
-        cy.get('button.btn.btn-primary')
-            .contains('Log in')
+        cy.get('#logInModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary')
             .click()
 
-        cy.wait('@login');
+        cy.wait('@login')
+
+        cy.get('#nameofuser')
+            .should('have.text', `Welcome ${username}`)
 
         cy.getCookie('tokenp_')
             .should('exist');
