@@ -1,4 +1,4 @@
-describe('First e2e tests', () => {
+describe('Auth Tests', () => {
   const username = 'username'
   const password = 'password'
   const passwordBase64 = 'cGFzc3dvcmQ='
