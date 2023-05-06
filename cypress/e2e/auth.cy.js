@@ -2,7 +2,7 @@ describe('Auth Tests', () => {
   const username = 'username'
   const password = 'password'
   const passwordBase64 = 'cGFzc3dvcmQ='
-Cypress._.times(20, () => {
+
   it('Signs in via UI', () => {
     cy.loginByUi(username, password);
 
@@ -14,7 +14,6 @@ Cypress._.times(20, () => {
     cy.get('#nameofuser')
       .should('have.text', `Welcome ${username}`)
   })
-})
 
   it('Signs in via API', () => {
     cy.loginByApi(username, passwordBase64)

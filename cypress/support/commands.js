@@ -1,5 +1,5 @@
 Cypress.Commands.add('loginByUi', (username, password) => {
-    // cy.session(`UI Login: ${username}`, () => {
+    cy.session(`UI Login: ${username}`, () => {
         cy.visit('/')
 
         cy.get('#login2').click();
@@ -24,14 +24,14 @@ Cypress.Commands.add('loginByUi', (username, password) => {
 
         cy.getCookie('tokenp_')
             .should('exist');
-    // }, {
-    //         validate() {
-    //             cy.request('/')
-    //             cy.getCookie('tokenp_')
-    //                 .should('exist')
-    //         },
-    //         cacheAcrossSpecs: true,
-    //     });
+    }, {
+            validate() {
+                cy.request('/')
+                cy.getCookie('tokenp_')
+                    .should('exist')
+            },
+            cacheAcrossSpecs: true,
+        });
 });
 
 Cypress.Commands.add('loginByApi', (username, password) => {
